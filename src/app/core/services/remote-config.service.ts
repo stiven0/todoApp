@@ -40,7 +40,6 @@ export class RemoteConfigService {
         }
 
         const enableDarkMode = this.getDarkModeFlag();
-        console.log('[RemoteConfig] enable_dark_mode:', enableDarkMode);
         this.applyDarkMode(enableDarkMode);
     }
 
