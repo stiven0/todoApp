@@ -6,7 +6,7 @@ import {
 import { addIcons } from 'ionicons';
 import { add, heart, pricetagsOutline } from 'ionicons/icons';
 import { TodoFormComponent } from '../../components/todo-form/todo-form.component';
-import { TodoCategoriesFormComponent } from '../../components/todo-categories-form/todo-categories-form.component';
+import { TodoCategoriesManagerComponent } from '../../components/todo-categories-manager/todo-categories-manager.component';
 import { TodoService } from '../../services/todo.service';
 import { CategoryService } from '../../services/category.service';
 import { TodoItemComponent } from '../../components/todo-item/todo-item.component';
@@ -110,16 +110,9 @@ export class TodoPage {
 
   async openCategories() {
     const modal = await this.modalCtrl.create({
-      component: TodoCategoriesFormComponent
+      component: TodoCategoriesManagerComponent
     });
-
     await modal.present();
-    const { data } = await modal.onDidDismiss();
-
-    if (data) {
-      await this.categoryService.addCategory(data);
-    }
-
   }
 
   async toggleTodoCompletion(id: string) {

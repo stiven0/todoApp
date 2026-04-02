@@ -1,0 +1,16 @@
+.category-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.empty-state p:first-child {
+  font-weight: 600;
+  color: #20314a;
+  margin-bottom: 6px;
+}
+
+.footer-btn-wrapper {
+  padding: 8px 16px;
+}

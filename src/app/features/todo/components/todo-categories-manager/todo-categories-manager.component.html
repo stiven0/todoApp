@@ -1,0 +1,45 @@
+<ion-header translucent="true">
+  <ion-toolbar>
+    <ion-title>Categorías</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" color="medium" (click)="closeModal()" aria-label="Cerrar">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  @if (categories().length === 0) {
+    <div class="empty-state ion-text-center ion-padding">
+      <p>No hay categorías aún.</p>
+      <p>Crea una para organizar tus tareas.</p>
+    </div>
+  } @else {
+    <ion-list lines="full">
+      @for (category of categories(); track category.id) {
+        <ion-item>
+          <span class="category-dot" [style.background]="category.color" slot="start"></span>
+          <ion-label>{{ category.name }}</ion-label>
+          <ion-button fill="clear" color="medium" slot="end" (click)="openEditCategory(category)" aria-label="Editar">
+            <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+          </ion-button>
+          <ion-button fill="clear" color="danger" slot="end" (click)="removeCategory(category.id)" aria-label="Eliminar">
+            <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+          </ion-button>
+        </ion-item>
+      }
+    </ion-list>
+  }
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <div class="footer-btn-wrapper">
+      <ion-button expand="block" class="add-btn" (click)="openAddCategory()">
+        <ion-icon slot="start" name="add"></ion-icon>
+        Nueva categoría
+      </ion-button>
+    </div>
+  </ion-toolbar>
+</ion-footer>

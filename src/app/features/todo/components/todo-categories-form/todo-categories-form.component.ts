@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular/standalone';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Category } from '../../models/todo-category';
@@ -20,7 +20,9 @@ import { FormValidationService } from '../../services/form-validation.service';
     IonicModule
   ]
 })
-export class TodoCategoriesFormComponent  implements OnInit {
+export class TodoCategoriesFormComponent implements OnInit {
+
+  @Input() categoryToEdit?: Category;
 
   private modalCtrl = inject(ModalController);
   private fb = inject(FormBuilder);
@@ -31,24 +33,35 @@ export class TodoCategoriesFormComponent  implements OnInit {
     color: ['#000000', [Validators.required, this.formValidationService.validateThatThePropertyIsNotJustBlanks]]
   });
 
+  get isEditMode(): boolean {
+    return !!this.categoryToEdit;
+  }
+
   constructor() {
     addIcons({ closeOutline, checkmark });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    if (this.categoryToEdit) {
+      this.todoCategoryForm.patchValue({
+        name: this.categoryToEdit.name,
+        color: this.categoryToEdit.color
+      });
+    }
+  }
 
   async closeModal() {
     await this.modalCtrl.dismiss(null, 'cancel');
   }
 
-  async createCategory() {
+  async saveCategory() {
     const { name, color } = this.todoCategoryForm.getRawValue();
-    const newCategory: Category = {
-      id: crypto.randomUUID(),
+    const category: Category = {
+      id: this.categoryToEdit?.id ?? crypto.randomUUID(),
       name: (name ?? '').trim(),
       color: color ?? '#000000'
     };
-    await this.modalCtrl.dismiss(newCategory, 'created');
+    await this.modalCtrl.dismiss(category, 'saved');
   }
 
 }
