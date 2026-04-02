@@ -1,7 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
-import { TodoService } from './features/todo/services/todo.service';
-import { CategoryService } from './features/todo/services/category.service';
+import { AppInitService } from './core/services/app-init.service';
 
 @Component({
   selector: 'app-root',
@@ -10,12 +9,10 @@ import { CategoryService } from './features/todo/services/category.service';
 })
 export class AppComponent implements OnInit {
 
-  private todoService = inject(TodoService);
-  private categoryService = inject(CategoryService);
+  private appInitService = inject(AppInitService);
 
   async ngOnInit() {
-    await this.todoService.init();
-    await this.categoryService.init();
+    await this.appInitService.init();
   }
 
 }
