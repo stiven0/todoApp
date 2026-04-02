@@ -6,15 +6,27 @@ import { add, closeOutline, createOutline, trashOutline } from 'ionicons/icons';
 import { CategoryService } from '../../services/category.service';
 import { TodoCategoriesFormComponent } from '../todo-categories-form/todo-categories-form.component';
 import { Category } from '../../models/todo-category';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @Component({
   selector: 'app-todo-categories-manager',
   templateUrl: './todo-categories-manager.component.html',
   styleUrls: ['./todo-categories-manager.component.scss'],
+  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonIcon,
-    IonContent, IonFooter, IonList, IonItem, IonLabel
+    IonHeader, 
+    IonToolbar, 
+    IonTitle, 
+    IonButtons, 
+    IonButton, 
+    IonIcon,
+    IonContent, 
+    IonFooter, 
+    IonList, 
+    IonItem, 
+    IonLabel,
+    ScrollingModule
   ]
 })
 export class TodoCategoriesManagerComponent {
@@ -58,5 +70,7 @@ export class TodoCategoriesManagerComponent {
   async removeCategory(id: string) {
     await this.categoryService.removeCategory(id);
   }
+
+  trackCategoryById = (_: number, category: Category) => category.id;
 
 }

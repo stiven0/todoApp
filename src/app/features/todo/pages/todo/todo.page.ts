@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { 
-  IonContent, IonHeader, IonTitle, IonToolbar, IonList, IonFab, IonFabButton, IonIcon, ModalController
+  IonContent, IonHeader, IonTitle, IonToolbar, IonFab, IonFabButton, IonIcon, ModalController
 } from '@ionic/angular/standalone';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 import { addIcons } from 'ionicons';
 import { add, heart, pricetagsOutline } from 'ionicons/icons';
 import { TodoFormComponent } from '../../components/todo-form/todo-form.component';
@@ -23,11 +24,11 @@ import { TodoFilterComponent } from '../../components/todo-filter/todo-filter.co
     IonContent, 
     IonHeader, 
     IonTitle, 
-    IonToolbar, 
-    IonList, 
+    IonToolbar,
     IonFab, 
     IonFabButton, 
     IonIcon, 
+    ScrollingModule,
     TodoFilterComponent,
     TodoItemComponent,
   ],
@@ -122,5 +123,7 @@ export class TodoPage {
   async removeTodo(id: string) {
     await this.todoService.removeTodo(id);
   }
+
+  trackTodoById = (_: number, todo: Todo) => todo.id;
 
 }

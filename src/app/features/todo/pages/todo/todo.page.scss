@@ -10,6 +10,12 @@
 	background: transparent;
 }
 
+.todo-viewport {
+	height: calc(100vh - 220px);
+	width: 100%;
+	background: transparent;
+}
+
 .empty-state {
 	padding: 40px 24px 120px;
 	color: #617185;

@@ -14,3 +14,9 @@
 .footer-btn-wrapper {
   padding: 8px 16px;
 }
+
+.todo-viewport {
+	height: calc(100vh - 220px);
+	width: 100%;
+	background: transparent;
+}

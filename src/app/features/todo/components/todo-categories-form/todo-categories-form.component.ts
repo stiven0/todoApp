@@ -13,6 +13,7 @@ import { FormValidationService } from '../../services/form-validation.service';
   templateUrl: './todo-categories-form.component.html',
   styleUrls: ['./todo-categories-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
   imports: [
     CommonModule,
     ReactiveFormsModule,

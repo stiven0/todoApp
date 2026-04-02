@@ -20,17 +20,18 @@
   @if (filteredTodos(); as todos) {
     @if (todos.length > 0) {
 
-      <ion-list class="todo-list">
-        @for (todo of todos; track todo.id) {
-          <app-todo-item 
-            [todo]="todo" 
+      <cdk-virtual-scroll-viewport class="todo-viewport" [itemSize]="88" [minBufferPx]="352" [maxBufferPx]="704">
+        <div class="todo-list">
+          <app-todo-item
+            *cdkVirtualFor="let todo of todos; trackBy: trackTodoById"
+            [todo]="todo"
             [category]="categoryById(todo.categoryId)"
             (toggle)="toggleTodoCompletion($event)"
             (edit)="openEditTodo($event)"
             (remove)="removeTodo($event)">
           </app-todo-item>
-        }
-      </ion-list>
+        </div>
+      </cdk-virtual-scroll-viewport>
     }  @else {
       <div class="empty-state ion-text-center ion-padding">
         <p>No hay tareas para el filtro actual.</p>
