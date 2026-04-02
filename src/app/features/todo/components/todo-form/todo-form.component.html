@@ -1,6 +1,6 @@
 <ion-header class="todo-form-header" translucent="true">
   <ion-toolbar>
-    <ion-title>Nueva tarea</ion-title>
+    <ion-title>{{ todoToEdit ? 'Editar tarea' : 'Nueva tarea' }}</ion-title>
     <ion-buttons slot="end">
       <ion-button fill="clear" color="medium" (click)="closeModal()" aria-label="Cerrar modal">
         <ion-icon name="close-outline"></ion-icon>
@@ -10,10 +10,10 @@
 </ion-header>
 
 <ion-content class="todo-form-content" [fullscreen]="true">
-  <form class="todo-form-shell" [formGroup]="todoForm" (ngSubmit)="createTodo()">
+  <form class="todo-form-shell" [formGroup]="todoForm" (ngSubmit)="saveTodo()">
     <div class="todo-form-intro">
       <h2>Captura rapida</h2>
-      <p>Registra una tarea y asignala a una categoria.</p>
+      <p>{{ todoToEdit ? 'Edita la tarea existente' : 'Registra una tarea y asignala a una categoria.' }}</p>
     </div>
 
     <ion-list lines="none" class="todo-form-list">
@@ -43,7 +43,7 @@
 
     <ion-button type="submit" expand="block" class="save-btn" [disabled]="todoForm.invalid">
       <ion-icon slot="start" name="checkmark"></ion-icon>
-      Guardar tarea
+      {{ todoToEdit ? 'Guardar cambios' : 'Guardar tarea' }}
     </ion-button>
   </form>
 </ion-content>

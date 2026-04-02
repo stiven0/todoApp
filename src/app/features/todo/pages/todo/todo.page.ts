@@ -12,6 +12,7 @@ import { CategoryService } from '../../services/category.service';
 import { TodoItemComponent } from '../../components/todo-item/todo-item.component';
 import { AsyncPipe } from '@angular/common';
 import { Category } from '../../models/todo-category';
+import { Todo } from '../../models/todo.model';
 
 @Component({
   selector: 'app-todo',
@@ -72,6 +73,22 @@ export class TodoPage {
     }
   }
 
+  async openEditTodo(todo: Todo) {
+    const modal = await this.modalCtrl.create({
+      component: TodoFormComponent,
+      componentProps: {
+        todoToEdit: todo
+      }
+    });
+
+    await modal.present();
+    const { data } = await modal.onDidDismiss();
+
+    if (data) {
+      this.todoService.updateTodo(data);
+    }
+  }
+
   async openCategories() {
     const modal = await this.modalCtrl.create({
       component: TodoCategoriesFormComponent
@@ -88,6 +105,10 @@ export class TodoPage {
 
   toggleTodoCompletion(id: string) {
     this.todoService.toggleTodoCompletion(id);
+  }
+
+  removeTodo(id: string) {
+    this.todoService.removeTodo(id);
   }
 
 }

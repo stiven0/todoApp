@@ -16,7 +16,9 @@
           <app-todo-item 
             [todo]="todo" 
             [category]="categoryById(todo.categoryId)"
-            (toggle)="toggleTodoCompletion(todo.id)">
+            (toggle)="toggleTodoCompletion(todo.id)"
+            (edit)="openEditTodo(todo)"
+            (remove)="removeTodo(todo.id)">
           </app-todo-item>
         }
       </ion-list>
