@@ -1,0 +1,1 @@
+export type Categories = 'Work' | 'Personal' | 'Urgent' | 'Others';
