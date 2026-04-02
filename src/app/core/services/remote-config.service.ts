@@ -24,8 +24,7 @@ export class RemoteConfigService {
     async init(): Promise<void> {
         this.firebaseApp = getApps().length ? getApp() : initializeApp(this.firebaseConfig);
         this.remoteConfig = getRemoteConfig(this.firebaseApp);
-        
-        this.remoteConfig.settings = {
+                this.remoteConfig.settings = {
             fetchTimeoutMillis: 10000,
             minimumFetchIntervalMillis: environment.production ? 3600000 : 0
         };
@@ -41,6 +40,7 @@ export class RemoteConfigService {
         }
 
         const enableDarkMode = this.getDarkModeFlag();
+        console.log('[RemoteConfig] enable_dark_mode:', enableDarkMode);
         this.applyDarkMode(enableDarkMode);
     }
 
@@ -54,7 +54,7 @@ export class RemoteConfigService {
     }
 
     private applyDarkMode(isEnabled: boolean): void {
-        document.body.classList.toggle('dark', isEnabled);
+        document.documentElement.classList.toggle('ion-palette-dark', isEnabled);
     }
 
 }
