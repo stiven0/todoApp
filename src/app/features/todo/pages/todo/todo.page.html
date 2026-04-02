@@ -9,9 +9,29 @@
 
 <ion-content [fullscreen]="true">
 
-  <ion-list>
-    <!-- app-todo-item *ngFor aquí -->
-  </ion-list>
+  @if (todos$ | async; as todos) {
+    @if (todos.length > 0) {
+      <ion-list>
+        @for (todo of todos; track todo.id) {
+          <app-todo-item 
+            [todo]="todo" 
+            [category]="categoryById(todo.categoryId)"
+            (toggle)="toggleTodoCompletion(todo.id)">
+          </app-todo-item>
+        }
+      </ion-list>
+    } @else {
+      <div class="empty-state ion-text-center ion-padding">
+        <p>No tienes tareas registradas.</p>
+        <p>¡Agrega tu primera tarea usando el botón +!</p>
+      </div>
+    }
+  } @else {
+    <div class="loading-state">
+      <ion-spinner name="crescent"></ion-spinner>
+      <p>Cargando tareas...</p>
+    </div>
+  }
 
   <ion-fab slot="fixed" vertical="bottom" horizontal="end">
     <div class="fab-group">

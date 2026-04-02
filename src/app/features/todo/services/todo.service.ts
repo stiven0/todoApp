@@ -8,7 +8,6 @@ import { Todo } from '../models/todo.model';
 })
 export class TodoService {
 
-    // services
     private storage = inject(Storage);
 
     private _todos$: BehaviorSubject<Todo[]> = new BehaviorSubject<Todo[]>([]);

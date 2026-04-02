@@ -8,6 +8,7 @@ import { checkmark, closeOutline, cog } from 'ionicons/icons';
 import { CategoryService } from '../../services/category.service';
 import { Category } from '../../models/todo-category';
 import { Todo } from '../../models/todo.model';
+import { FormValidationService } from '../../services/form-validation.service';
 
 @Component({
   selector: 'app-todo-form',
@@ -27,11 +28,13 @@ export class TodoFormComponent {
   private modalCtrl = inject(ModalController);
   private categoryService = inject(CategoryService);
   private fb = inject(FormBuilder);
+  private formValidationService = inject(FormValidationService);
 
   readonly categories$ = this.categoryService.categories$;
 
+
   readonly todoForm = this.fb.group({
-    title: ['', [Validators.required]],
+    title: ['', [Validators.required, this.formValidationService.validateThatThePropertyIsNotJustBlanks]],
     categoryId: [null as string | null]
   });
 

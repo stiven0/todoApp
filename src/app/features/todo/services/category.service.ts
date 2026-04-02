@@ -9,7 +9,6 @@ import { TodoService } from './todo.service';
 })
 export class CategoryService {
 
-    // services
     private storage = inject(Storage);
     private todoService = inject(TodoService);
 

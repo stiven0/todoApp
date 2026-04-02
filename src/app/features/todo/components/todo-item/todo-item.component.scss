@@ -1,0 +1,82 @@
+:host {
+	display: block;
+	margin-bottom: 10px;
+}
+
+.todo-card {
+	--background: #ffffff;
+	--border-radius: 16px;
+	--padding-start: 6px;
+	--padding-end: 6px;
+	border: 1px solid rgba(39, 86, 177, 0.13);
+	box-shadow: 0 8px 18px rgba(15, 34, 67, 0.08);
+}
+
+.todo-card h3 {
+	margin: 0;
+	font-size: 1rem;
+	font-weight: 600;
+	color: #1b2a40;
+}
+
+.todo-card p {
+	margin: 4px 0 0;
+	font-size: 0.78rem;
+	color: #6b7889;
+}
+
+.meta-row {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 10px;
+	margin-top: 6px;
+}
+
+.meta-row p {
+	margin: 0;
+	white-space: nowrap;
+}
+
+.category-chip {
+	--category-color: #8b96a8;
+	display: inline-flex;
+	align-items: center;
+	max-width: 58%;
+	padding: 2px 10px;
+	border-radius: 999px;
+	font-size: 0.72rem;
+	font-weight: 600;
+	color: var(--category-color);
+	background: color-mix(in srgb, var(--category-color) 16%, white);
+	border: 1px solid color-mix(in srgb, var(--category-color) 42%, white);
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.check-btn {
+	--color: #9ba9ba;
+	margin-inline-start: 2px;
+}
+
+.check-btn ion-icon {
+	font-size: 1.45rem;
+}
+
+.edit-btn {
+	--color: #4a6ba5;
+}
+
+.is-completed {
+	opacity: 0.82;
+}
+
+.is-completed h3 {
+	text-decoration: line-through;
+	color: #6e7b8d;
+}
+
+.is-completed .check-btn {
+	--color: #18a26f;
+}

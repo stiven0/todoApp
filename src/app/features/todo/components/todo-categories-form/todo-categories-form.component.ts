@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular/standalone';
-import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Category } from '../../models/todo-category';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { addIcons } from 'ionicons';
 import { checkmark, closeOutline } from 'ionicons/icons';
+import { FormValidationService } from '../../services/form-validation.service';
 
 @Component({
   selector: 'app-todo-categories-form',
@@ -23,10 +24,11 @@ export class TodoCategoriesFormComponent  implements OnInit {
 
   private modalCtrl = inject(ModalController);
   private fb = inject(FormBuilder);
+  private formValidationService = inject(FormValidationService);
 
   readonly todoCategoryForm = this.fb.group({
-    name: [''],
-    color: ['#000000']
+    name: ['', [Validators.required, this.formValidationService.validateThatThePropertyIsNotJustBlanks]],
+    color: ['#000000', [Validators.required, this.formValidationService.validateThatThePropertyIsNotJustBlanks]]
   });
 
   constructor() {

@@ -28,7 +28,7 @@
       </ion-item>
     </ion-list>
 
-    <ion-button class="save-btn" expand="block" type="submit">
+    <ion-button class="save-btn" expand="block" type="submit" [disabled]="todoCategoryForm.invalid">
       <ion-icon slot="start" name="checkmark"></ion-icon>
       Crear categoria
     </ion-button>
