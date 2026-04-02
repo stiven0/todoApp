@@ -1,0 +1,72 @@
+:host {
+	display: block;
+}
+
+.filter-shell {
+	padding: 12px 16px 4px;
+}
+
+.todo-search {
+	--background: rgba(255, 255, 255, 0.92);
+	--border-radius: 16px;
+	--box-shadow: 0 8px 22px rgba(17, 36, 74, 0.08);
+	--placeholder-color: #718096;
+	padding-inline: 0;
+}
+
+.filter-scroll {
+	display: flex;
+	gap: 10px;
+	margin-top: 10px;
+	padding-bottom: 6px;
+	overflow-x: auto;
+	scrollbar-width: none;
+}
+
+.filter-scroll::-webkit-scrollbar {
+	display: none;
+}
+
+.filter-chip {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	flex: 0 0 auto;
+	min-height: 36px;
+	padding: 0 14px;
+	border: 1px solid rgba(48, 86, 162, 0.16);
+	border-radius: 999px;
+	background: #ffffff;
+	color: #30486b;
+	font-size: 0.83rem;
+	font-weight: 600;
+	box-shadow: 0 6px 14px rgba(17, 36, 74, 0.06);
+}
+
+.filter-chip.is-active {
+	background: linear-gradient(120deg, #14a36e 0%, #2e6dff 100%);
+	border-color: transparent;
+	color: #ffffff;
+	box-shadow: 0 10px 20px rgba(40, 92, 200, 0.24);
+}
+
+.category-chip {
+	--category-color: #7b8ba3;
+}
+
+.category-chip.is-active {
+	background: color-mix(in srgb, var(--category-color) 78%, #12233f);
+}
+
+.category-dot {
+	width: 9px;
+	height: 9px;
+	border-radius: 50%;
+	background: var(--category-color, #7b8ba3);
+	box-shadow: 0 0 0 3px color-mix(in srgb, var(--category-color, #7b8ba3) 16%, white);
+}
+
+.filter-chip.is-active .category-dot {
+	background: #ffffff;
+	box-shadow: none;
+}

@@ -1,3 +1,43 @@
-<p>
-  todo-filter works!
-</p>
+<section class="filter-shell">
+  <ion-searchbar
+    class="todo-search"
+    [value]="searchTerm()"
+    placeholder="Buscar por titulo"
+    animated="true"
+    debounce="250"
+    show-clear-button="focus"
+    (ionInput)="onSearchInput($event)">
+  </ion-searchbar>
+
+  <div class="filter-scroll" role="tablist" aria-label="Filtrar tareas por categoria">
+    <button
+      type="button"
+      class="filter-chip"
+      [class.is-active]="selectedCategoryId() === 'all'"
+      (click)="selectCategory('all')">
+      Todas
+    </button>
+
+    <button
+      type="button"
+      class="filter-chip"
+      [class.is-active]="selectedCategoryId() === 'uncategorized'"
+      (click)="selectCategory('uncategorized')">
+      Sin categoria
+    </button>
+
+    @if (categories(); as categoryList) {
+      @for (category of categoryList; track category.id) {
+        <button
+          type="button"
+          class="filter-chip category-chip"
+          [class.is-active]="selectedCategoryId() === category.id"
+          [style.--category-color]="category.color"
+          (click)="selectCategory(category.id)">
+          <span class="category-dot"></span>
+          {{ category.name }}
+        </button>
+      }
+    }
+  </div>
+</section>

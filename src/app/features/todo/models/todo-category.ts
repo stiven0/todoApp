@@ -3,3 +3,5 @@ export interface Category {
     name: string;
     color: string;
 }
+
+export type TodoCategoryFilter = 'all' | 'uncategorized' | string;

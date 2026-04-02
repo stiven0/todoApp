@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, Component, inject, signal, Signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { 
-  IonContent, IonHeader, IonTitle, IonToolbar, IonList, IonFab, IonFabButton, IonIcon, ModalController,
-  IonSpinner
+  IonContent, IonHeader, IonTitle, IonToolbar, IonList, IonFab, IonFabButton, IonIcon, ModalController
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { add, heart, pricetagsOutline } from 'ionicons/icons';
@@ -10,9 +10,9 @@ import { TodoCategoriesFormComponent } from '../../components/todo-categories-fo
 import { TodoService } from '../../services/todo.service';
 import { CategoryService } from '../../services/category.service';
 import { TodoItemComponent } from '../../components/todo-item/todo-item.component';
-import { AsyncPipe } from '@angular/common';
-import { Category } from '../../models/todo-category';
+import { Category, TodoCategoryFilter } from '../../models/todo-category';
 import { Todo } from '../../models/todo.model';
+import { TodoFilterComponent } from '../../components/todo-filter/todo-filter.component';
 
 @Component({
   selector: 'app-todo',
@@ -28,9 +28,8 @@ import { Todo } from '../../models/todo.model';
     IonFab, 
     IonFabButton, 
     IonIcon, 
-    IonSpinner,
+    TodoFilterComponent,
     TodoItemComponent,
-    AsyncPipe
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -40,24 +39,44 @@ export class TodoPage {
   private categoryService = inject(CategoryService);
   private modalCtrl = inject(ModalController);
 
-  todos$ = this.todoService.todos$;
-  categories$ = this.categoryService.categories$;
-  categoriesAllowed = signal<Category[]>([]);
+  readonly todos = toSignal(this.todoService.todos$, { initialValue: [] as Todo[] });
+  readonly categories = toSignal(this.categoryService.categories$, { initialValue: [] as Category[] });
+  readonly searchTerm = signal('');
+  readonly selectedCategoryId = signal<TodoCategoryFilter>('all');
+  readonly categoryMap = computed(() => new Map(this.categories().map(category => [category.id, category])));
+  readonly filteredTodos = computed(() => {
+    const query = this.searchTerm().trim().toLowerCase();
+    const selectedCategory = this.selectedCategoryId();
+
+    return this.todos().filter(todo => {
+      const matchesTitle = !query || todo.title.toLowerCase().includes(query);
+      const matchesCategory = selectedCategory === 'all'
+        ? true
+        : selectedCategory === 'uncategorized'
+          ? todo.categoryId === null
+          : todo.categoryId === selectedCategory;
+
+      return matchesTitle && matchesCategory;
+    });
+  });
 
   constructor() {
     addIcons({ add, heart, pricetagsOutline });
-    this.todos$.subscribe(todos => console.log('todos', todos));
-    this.categories$.subscribe(categories => {
-      this.categoriesAllowed.set(categories);
-      console.log('categories', this.categoriesAllowed());
-    });
   }
 
   categoryById(id: string | null): Category | null {
-    if (!id || this.categoriesAllowed().length === 0) {
+    if (!id) {
       return null;
     }
-    return this.categoriesAllowed().find(category => category.id === id) ?? null;
+    return this.categoryMap().get(id) ?? null;
+  }
+
+  onSearchChange(value: string) {
+    this.searchTerm.set(value);
+  }
+
+  onCategoryChange(value: TodoCategoryFilter) {
+    this.selectedCategoryId.set(value);
   }
 
   async openAddTodo() {
@@ -69,7 +88,7 @@ export class TodoPage {
     const { data } = await modal.onDidDismiss();
 
     if (data) {
-      this.todoService.addTodo(data);
+      await this.todoService.addTodo(data);
     }
   }
 
@@ -85,7 +104,7 @@ export class TodoPage {
     const { data } = await modal.onDidDismiss();
 
     if (data) {
-      this.todoService.updateTodo(data);
+      await this.todoService.updateTodo(data);
     }
   }
 
@@ -98,17 +117,17 @@ export class TodoPage {
     const { data } = await modal.onDidDismiss();
 
     if (data) {
-      this.categoryService.addCategory(data);
+      await this.categoryService.addCategory(data);
     }
 
   }
 
-  toggleTodoCompletion(id: string) {
-    this.todoService.toggleTodoCompletion(id);
+  async toggleTodoCompletion(id: string) {
+    await this.todoService.toggleTodoCompletion(id);
   }
 
-  removeTodo(id: string) {
-    this.todoService.removeTodo(id);
+  async removeTodo(id: string) {
+    await this.todoService.removeTodo(id);
   }
 
 }

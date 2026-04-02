@@ -5,6 +5,23 @@
 	gap: 6px;
 }
 
+.todo-list {
+	padding: 6px 16px 120px;
+	background: transparent;
+}
+
+.empty-state {
+	padding: 40px 24px 120px;
+	color: #617185;
+}
+
+.empty-state p:first-child {
+	margin-bottom: 8px;
+	font-size: 1rem;
+	font-weight: 600;
+	color: #20314a;
+}
+
 .fab-group {
 	display: flex;
 	flex-direction: column;
