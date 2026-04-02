@@ -1,1 +1,5 @@
-export type Categories = 'Work' | 'Personal' | 'Urgent' | 'Others';
+export interface Category {
+    id: string;
+    name: string;
+    color: string;
+}

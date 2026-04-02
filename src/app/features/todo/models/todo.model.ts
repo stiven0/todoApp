@@ -1,9 +1,7 @@
-import { Categories } from "./todo-category.types";
-
 export interface Todo {
   id: string;
   title: string;
   completed: boolean;
-  category: Categories;
+  categoryId: string | null;
   createdAt: number;
 }
