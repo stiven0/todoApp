@@ -1,13 +1,22 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>todo</ion-title>
+    <ion-title class="ion-text-center title-center">
+      Mis Tareas
+      <ion-icon name="heart" color="primary"></ion-icon>
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">todo</ion-title>
-    </ion-toolbar>
-  </ion-header>
+
+  <ion-list>
+    <!-- app-todo-item *ngFor aquí -->
+  </ion-list>
+
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button (click)="openAddTodo()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
 </ion-content>

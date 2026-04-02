@@ -1,21 +1,38 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonList, IonFab, IonFabButton, IonIcon, ModalController } from '@ionic/angular/standalone';
+import { addIcons } from 'ionicons';
+import { add, heart } from 'ionicons/icons';
+import { TodoFormComponent } from '../../components/todo-form/todo-form.component';
 
 @Component({
   selector: 'app-todo',
   templateUrl: './todo.page.html',
   styleUrls: ['./todo.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule],
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, IonList, IonFab, IonFabButton, IonIcon],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TodoPage implements OnInit {
+export class TodoPage {
 
-  constructor() { }
+  private modalCtrl = inject(ModalController);
 
-  ngOnInit() {
+  constructor() {
+    addIcons({ add, heart });
+  }
+
+  async openAddTodo() {
+    const modal = await this.modalCtrl.create({
+      component: TodoFormComponent
+    });
+
+    await modal.present();
+
+    const { data } = await modal.onDidDismiss();
+    console.log(data);
+
+    // if (data) {
+    //   this.todoService.addTodo(data);
+    // }
   }
 
 }
