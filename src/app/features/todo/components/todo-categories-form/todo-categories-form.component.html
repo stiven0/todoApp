@@ -1,0 +1,36 @@
+<ion-header class="todo-form-header" translucent="true">
+  <ion-toolbar>
+    <ion-title>Nueva categoria</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" color="medium" (click)="closeModal()" aria-label="Cerrar modal">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="todo-form-content" [fullscreen]="true">
+  <form class="todo-form-shell" [formGroup]="todoCategoryForm" (ngSubmit)="createCategory()">
+    <div class="todo-form-intro">
+      <h2>Personaliza tu tablero</h2>
+      <p>Define categorias con color para filtrar tareas rapidamente.</p>
+    </div>
+
+    <ion-list lines="none" class="todo-form-list">
+      <ion-item class="todo-item">
+        <ion-label position="stacked">Nombre</ion-label>
+        <ion-input formControlName="name" placeholder="Ej. Estudio, Salud, Oficina"></ion-input>
+      </ion-item>
+
+      <ion-item class="todo-item color-item">
+        <ion-label position="stacked">Color</ion-label>
+        <ion-input type="color" formControlName="color"></ion-input>
+      </ion-item>
+    </ion-list>
+
+    <ion-button class="save-btn" expand="block" type="submit">
+      <ion-icon slot="start" name="checkmark"></ion-icon>
+      Crear categoria
+    </ion-button>
+  </form>
+</ion-content>

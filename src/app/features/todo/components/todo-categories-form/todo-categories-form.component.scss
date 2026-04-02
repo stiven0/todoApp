@@ -52,6 +52,10 @@
 	border: 1px solid rgba(43, 109, 255, 0.12);
 }
 
+.color-item ion-input {
+	min-height: 40px;
+}
+
 .save-btn {
 	margin-top: 10px;
 	--background: linear-gradient(120deg, var(--accent) 0%, var(--accent-2) 100%);

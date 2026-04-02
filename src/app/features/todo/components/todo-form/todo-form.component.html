@@ -1,3 +1,49 @@
-<p>
-  todo-form works!
-</p>
+<ion-header class="todo-form-header" translucent="true">
+  <ion-toolbar>
+    <ion-title>Nueva tarea</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" color="medium" (click)="closeModal()" aria-label="Cerrar modal">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="todo-form-content" [fullscreen]="true">
+  <form class="todo-form-shell" [formGroup]="todoForm" (ngSubmit)="createTodo()">
+    <div class="todo-form-intro">
+      <h2>Captura rapida</h2>
+      <p>Registra una tarea y asignala a una categoria.</p>
+    </div>
+
+    <ion-list lines="none" class="todo-form-list">
+      <ion-item class="todo-item">
+        <ion-label position="stacked">Titulo</ion-label>
+        <ion-input
+          formControlName="title"
+          placeholder="Ej. Preparar la cena del viernes"
+          clearInput="true">
+        </ion-input>
+      </ion-item>
+
+      <ion-item class="todo-item">
+        <ion-label position="stacked">Categoria (opcional)</ion-label>
+        <ion-select formControlName="categoryId" interface="popover" placeholder="Sin categoria">
+          <ion-select-option [value]="null">Sin categoria</ion-select-option>
+          @if (categories$ | async; as categories) {
+            @for (category of categories; track category.id) {
+              <ion-select-option [value]="category.id">
+                {{ category.name }}
+              </ion-select-option>
+            }
+          }
+        </ion-select>
+      </ion-item>
+    </ion-list>
+
+    <ion-button type="submit" expand="block" class="save-btn" [disabled]="todoForm.invalid">
+      <ion-icon slot="start" name="checkmark"></ion-icon>
+      Guardar tarea
+    </ion-button>
+  </form>
+</ion-content>

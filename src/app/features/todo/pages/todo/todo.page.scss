@@ -1,0 +1,24 @@
+.title-center {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 6px;
+}
+
+.fab-group {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 10px;
+}
+
+.categories-fab {
+	--background: #ffffff;
+	--color: #2f4f7f;
+	--box-shadow: 0 8px 18px rgba(18, 52, 99, 0.18);
+}
+
+.add-fab {
+	--background: linear-gradient(120deg, #14a36e 0%, #2e6dff 100%);
+	--box-shadow: 0 12px 24px rgba(31, 86, 191, 0.32);
+}

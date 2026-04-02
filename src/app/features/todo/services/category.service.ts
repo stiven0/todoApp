@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage-angular';
 import { BehaviorSubject } from 'rxjs';
-import { Category } from '../models/todo-category.types';
+import { Category } from '../models/todo-category';
 import { TodoService } from './todo.service';
 
 @Injectable({

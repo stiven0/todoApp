@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonList, IonFab, IonFabButton, IonIcon, ModalController } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { add, heart } from 'ionicons/icons';
+import { add, heart, pricetagsOutline } from 'ionicons/icons';
 import { TodoFormComponent } from '../../components/todo-form/todo-form.component';
+import { TodoCategoriesFormComponent } from '../../components/todo-categories-form/todo-categories-form.component';
 
 @Component({
   selector: 'app-todo',
@@ -17,7 +18,7 @@ export class TodoPage {
   private modalCtrl = inject(ModalController);
 
   constructor() {
-    addIcons({ add, heart });
+    addIcons({ add, heart, pricetagsOutline });
   }
 
   async openAddTodo() {
@@ -33,6 +34,18 @@ export class TodoPage {
     // if (data) {
     //   this.todoService.addTodo(data);
     // }
+  }
+
+  async openCategories() {
+    const modal = await this.modalCtrl.create({
+      component: TodoCategoriesFormComponent
+    });
+
+    await modal.present();
+
+    const { data } = await modal.onDidDismiss();
+    console.log(data);
+
   }
 
 }

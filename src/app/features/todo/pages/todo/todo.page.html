@@ -14,9 +14,15 @@
   </ion-list>
 
   <ion-fab slot="fixed" vertical="bottom" horizontal="end">
-    <ion-fab-button (click)="openAddTodo()">
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
+    <div class="fab-group">
+      <ion-fab-button size="small" class="categories-fab" (click)="openCategories()" aria-label="Gestionar categorias">
+        <ion-icon name="pricetags-outline"></ion-icon>
+      </ion-fab-button>
+
+      <ion-fab-button class="add-fab" (click)="openAddTodo()" aria-label="Crear tarea">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </div>
   </ion-fab>
 
 </ion-content>
