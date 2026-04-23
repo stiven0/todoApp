@@ -24,7 +24,7 @@ export class RemoteConfigService {
     async init(): Promise<void> {
         this.firebaseApp = getApps().length ? getApp() : initializeApp(this.firebaseConfig);
         this.remoteConfig = getRemoteConfig(this.firebaseApp);
-                this.remoteConfig.settings = {
+        this.remoteConfig.settings = {
             fetchTimeoutMillis: 10000,
             minimumFetchIntervalMillis: environment.production ? 3600000 : 0
         };
