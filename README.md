@@ -95,6 +95,9 @@ npx cap open android
 
 ---
 
+#### Archivo APK de Android generado (debug)
+[Descargar app-debug.apk](https://drive.google.com/file/d/1IJWjsKg_U1kChnSKtzml8FuBdRHvXYUK/view?usp=sharing)
+
 ### iOS
 
 > ⚠️ **Requiere macOS con Xcode instalado.**
